@@ -1,0 +1,8 @@
+# PNPM
+node_modules
+
+# Build
+dist
+
+# Environment
+.env
