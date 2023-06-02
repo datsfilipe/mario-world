@@ -3,20 +3,43 @@ module.exports = {
     es2021: true,
     node: true
   },
-  extends: 'standard-with-typescript',
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   overrides: [
   ],
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module'
+    ecmaVersion: "latest",
+    sourceType: "module"
   },
+  plugins: [
+    "@typescript-eslint"
+  ],
   rules: {
+    indent: [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    quotes: [
+      "error",
+      "double"
+    ],
+    semi: [
+      "error",
+      "always"
+    ]
   },
   settings: {
-    'import/resolver': {
+    "import/resolver": {
       typescript: {
-        directory: 'packages/server/*/tsconfig.json'
+        directory: "packages/server/*/tsconfig.json"
       }
     }
   }
-}
+};
