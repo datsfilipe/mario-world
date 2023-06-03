@@ -1,5 +1,5 @@
 {
-  "name": "_shared",
+  "name": "@server/shared",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,6 @@
     "uuidv4": "^6.2.13"
   },
   "dependencies": {
-    "express": "^4.18.2",
     "fastify": "^4.17.0"
   }
 }
