@@ -4,6 +4,7 @@ import { Guard } from "@server/shared/src/core/logic/Guard";
 import { Result } from "@server/shared/src/core/logic/Result";
 
 import { UserCreatedEvent } from "./events/UserCreatedEvent";
+import { UserEmail } from "./UserEmail";
 
 type Post = {
   id: string;
@@ -15,7 +16,7 @@ type Post = {
 
 interface IUserProps {
   name: string;
-  email: string;
+  email: UserEmail;
   posts?: Post[];
 }
 
@@ -24,7 +25,7 @@ export class User extends AggregateRoot<IUserProps> {
     return this.props.name;
   }
 
-  get email(): string {
+  get email(): UserEmail {
     return this.props.email;
   }
 
