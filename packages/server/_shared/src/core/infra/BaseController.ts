@@ -73,8 +73,8 @@ export abstract class BaseController<IRequest, IResponse> {
     return BaseController.send(404, this.response, message || "Not Found");
   }
 
-  public fail(error: Error | string): Response | FastifyReply {
+  public fail(error: Error | unknown): Response | FastifyReply {
     console.log(error);
-    return BaseController.send(500, this.response, error.toString());
+    return BaseController.send(500, this.response, error?.toString() || "Internal Server Error");
   }
 }
