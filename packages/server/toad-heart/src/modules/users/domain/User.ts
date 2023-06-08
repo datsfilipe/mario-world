@@ -3,6 +3,8 @@ import { UniqueEntityID } from "@server/shared/src/core/domain/UniqueEntityID";
 import { Guard } from "@server/shared/src/core/logic/Guard";
 import { Result } from "@server/shared/src/core/logic/Result";
 
+import { UserCreatedEvent } from "./events/UserCreatedEvent";
+
 type Post = {
   id: string;
   title: string;
@@ -41,6 +43,12 @@ export class User extends AggregateRoot<IUserProps> {
     }
 
     const user = new User(props, id);
+
+    const idWasProvided = !!id;
+
+    if (!idWasProvided) {
+      user.addDomainEvent(new UserCreatedEvent(user));
+    }
 
     return Result.ok<User>(user);
   }
