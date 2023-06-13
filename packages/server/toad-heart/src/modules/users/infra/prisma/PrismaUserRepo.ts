@@ -3,6 +3,7 @@ import { User } from "@modules/users/domain/User";
 import { UserEmail } from "@modules/users/domain/UserEmail";
 import { UserMap } from "@modules/users/mappers/UserMap";
 import { IUserRepo } from "@modules/users/repositories/IUserRepo";
+import { DomainEvents } from "@server/shared/src/core/domain/events/DomainEvents";
 
 export class PrismaUserRepo implements IUserRepo {
   async findByEmail(email: string | UserEmail): Promise<User | undefined> {
@@ -32,7 +33,14 @@ export class PrismaUserRepo implements IUserRepo {
   }
 
   async save(user: User): Promise<void> {
-    // TODO: Implement
-    throw new Error("Method not implemented.");
+    const data = await UserMap.toPersistence(user);
+
+    await prisma.user.upsert({
+      where: { id: user.id.toString() },
+      update: data,
+      create: data,
+    });
+
+    DomainEvents.dispatchEventsForAggregate(user.id);
   }
 }
