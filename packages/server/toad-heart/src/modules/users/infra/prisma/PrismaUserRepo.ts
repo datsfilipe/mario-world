@@ -1,6 +1,7 @@
 import { prisma } from "@infra/prisma/client";
 import { User } from "@modules/users/domain/User";
 import { UserEmail } from "@modules/users/domain/UserEmail";
+import { UserMap } from "@modules/users/mappers/UserMap";
 import { IUserRepo } from "@modules/users/repositories/IUserRepo";
 
 export class PrismaUserRepo implements IUserRepo {
@@ -14,6 +15,8 @@ export class PrismaUserRepo implements IUserRepo {
     if (!rawUser) {
       return;
     }
+
+    return UserMap.toDomain(rawUser);
   }
 
   async findById(id: string): Promise<User | undefined> {
@@ -24,6 +27,8 @@ export class PrismaUserRepo implements IUserRepo {
     if (!rawUser) {
       return;
     }
+
+    return UserMap.toDomain(rawUser);
   }
 
   async save(user: User): Promise<void> {
