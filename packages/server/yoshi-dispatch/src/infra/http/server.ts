@@ -1,8 +1,11 @@
 import fastify from "fastify";
+import routes from "./routes";
 
 const server = fastify({
   logger: true
 });
+
+server.register(routes);
 
 server.listen({ port: 3335 }, (err, address) => {
   if (err) {

@@ -1,11 +1,11 @@
-import { server } from "./server";
-// import { RouteOptions } from "fastify/types/route";
+import type { RouteOptions } from "fastify/types/route";
+import type { FastifyInstance } from "fastify";
 
-// import customerRoutes from "@modules/customer/infra/http";
+import customerRoutes from "@modules/customer/infra/http";
 
-server.register((instance, opts, done) => {
-  // customerRoutes.forEach((route: RouteOptions) => {
-  //   instance.route(route);
-  // });
+export default function routes(instance: FastifyInstance, opts: unknown, done: () => void): void {
+  customerRoutes.forEach((route: RouteOptions) => {
+    instance.route(route);
+  });
   done();
-}, { prefix: "/customer" });
+}
